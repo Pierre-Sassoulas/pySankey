@@ -96,8 +96,8 @@ colorDict = {
     'blueberry':'#1b7ef7',
     'banana':'#f3f71b',
     'lime':'#12e23f',
-    'orange':'#f78c1b'
-    'kiwi':'9BD937'
+    'orange':'#f78c1b',
+    'kiwi':'#9BD937'
 }
 sankey(
     df['true'], df['predicted'], aspect=20, colorDict=colorDict,
