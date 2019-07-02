@@ -108,7 +108,7 @@ sankey(
 # Result is in "fruit.png"
 ```
 
-![Fruity Alchemy](pysankey/fruits.png)
+![Fruity Alchemy](pysankey/fruit.png)
 
 You could also use weight:
 
