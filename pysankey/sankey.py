@@ -18,13 +18,12 @@ Produces simple Sankey Diagrams with matplotlib.
 import logging
 import warnings
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from matplotlib.axes._subplots import AxesSubplot
 from numpy import float64, ndarray
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
@@ -44,8 +43,10 @@ class LabelMismatch(PySankeyException):
     pass
 
 
-def check_data_matches_labels(labels: List[str], data: Series, side: str) -> None:
-    """Check whether or not data matches labels.
+def check_data_matches_labels(
+    labels: Union[List[str], Set[str]], data: Series, side: str
+) -> None:
+    """Check whether data matches labels.
 
     Raise a LabelMismatch Exception if not."""
     if len(labels) > 0:
@@ -79,7 +80,7 @@ def sankey(
     closePlot: bool = False,
     figSize: Optional[Tuple[int, int]] = None,
     ax: Optional[Any] = None,
-) -> AxesSubplot:
+) -> Any:
     """
     Make Sankey Diagram showing flow from left-->right
 
@@ -125,7 +126,7 @@ def sankey(
     ).unique()
     LOGGER.debug("Labels to handle : %s", allLabels)
     leftLabels, rightLabels = identify_labels(dataFrame, leftLabels, rightLabels)
-    colorDict = create_colors(allLabels, colorDict)
+    colorDict = create_colors(allLabels, colorDict)  # type: ignore
     ns_l, ns_r = determine_widths(dataFrame, leftLabels, rightLabels)
     # Determine positions of left label patches and total widths
     leftWidths, topEdge = _get_positions_and_total_widths(dataFrame, leftLabels, "left")
@@ -136,11 +137,18 @@ def sankey(
     # Total vertical extent of diagram
     xMax = topEdge / aspect
     draw_vertical_bars(
-        ax, colorDict, fontsize, leftLabels, leftWidths, rightLabels, rightWidths, xMax
+        ax,
+        colorDict,  # type: ignore
+        fontsize,
+        leftLabels,
+        leftWidths,
+        rightLabels,
+        rightWidths,
+        xMax,  # type: ignore
     )
     plot_strips(
         ax,
-        colorDict,
+        colorDict,  # type: ignore
         dataFrame,
         leftLabels,
         leftWidths,
@@ -192,7 +200,7 @@ def init_values(
     leftWeight: Optional[ndarray],
     rightLabels: Optional[List[str]],
     rightWeight: Optional[ndarray],
-) -> Tuple[AxesSubplot, List[str], ndarray, List[str], ndarray]:
+) -> Tuple[Any, List[str], ndarray, List[str], ndarray]:
     deprecation_warnings(closePlot, figSize, figureName)
     if ax is None:
         ax = plt.gca()
@@ -239,8 +247,8 @@ def determine_widths(
     dataFrame: DataFrame, leftLabels: ndarray, rightLabels: ndarray
 ) -> Tuple[Dict, Dict]:
     # Determine widths of individual strips
-    ns_l = defaultdict()
-    ns_r = defaultdict()
+    ns_l: Dict = defaultdict()
+    ns_r: Dict = defaultdict()
     for leftLabel in leftLabels:
         leftDict = {}
         rightDict = {}
@@ -257,7 +265,7 @@ def determine_widths(
 
 
 def draw_vertical_bars(
-    ax: AxesSubplot,
+    ax: Any,
     colorDict: Union[Dict[str, Tuple[float, float, float]], Dict[str, str]],
     fontsize: int,
     leftLabels: ndarray,
@@ -351,7 +359,7 @@ def create_datadrame(
 
 
 def plot_strips(
-    ax: AxesSubplot,
+    ax: Any,
     colorDict: Union[Dict[str, Tuple[float, float, float]], Dict[str, str]],
     dataFrame: DataFrame,
     leftLabels: ndarray,
@@ -411,7 +419,7 @@ def _get_positions_and_total_widths(
     df: DataFrame, labels: ndarray, side: str
 ) -> Tuple[Dict, float64]:
     """Determine positions of label patches and total widths"""
-    widths = defaultdict()
+    widths: Dict = defaultdict()
     for i, label in enumerate(labels):
         labelWidths = {}
         labelWidths[side] = df[df[side] == label][side + "Weight"].sum()

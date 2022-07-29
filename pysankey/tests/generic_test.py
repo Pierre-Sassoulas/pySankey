@@ -18,7 +18,7 @@ class GenericTest(unittest.TestCase):
         cls.colorDict = ""
 
     def tearDown(self) -> None:
-        path = f"{self.figure_name}.png"
+        path = f"{self.figure_name}.png"  # type: ignore
         # Comment this to check the resulting image
         if os.path.exists(path):
             os.remove(path)
