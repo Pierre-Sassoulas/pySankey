@@ -6,7 +6,7 @@ class TestErrorCase(TestFruit):
 
     """Test sankey's deprecation warnings."""
 
-    def test_deprecated_parameters(self):
+    def test_deprecated_parameters(self) -> None:
         """Test if deprecation warnings are correctly triggered"""
         with self.assertWarns(DeprecationWarning):
             sankey(

@@ -5,6 +5,6 @@ from pysankey.tests.generic_test import TestFruit
 
 
 class TestSankey(TestFruit):
-    def test_right_color(self):
+    def test_right_color(self) -> None:
         ax = sankey(self.data["true"], self.data["predicted"], rightColor=True)
         self.assertIsInstance(ax, plt.Axes)

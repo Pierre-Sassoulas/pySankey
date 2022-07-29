@@ -8,7 +8,7 @@ class TestCreateDataframeCustomerGood(TestCustomerGood):
 
     """Tests the create_dataframe function on the data in customers-goods.csv"""
 
-    def test_dataframe_correct_type(self):
+    def test_dataframe_correct_type(self) -> None:
         dataframe = create_datadrame(
             left=self.data["customer"],
             leftWeight=self.data["revenue"],
@@ -17,7 +17,7 @@ class TestCreateDataframeCustomerGood(TestCustomerGood):
         )
         self.assertIsInstance(dataframe, pd.DataFrame)
 
-    def test_sorted_dataframe(self):
+    def test_sorted_dataframe(self) -> None:
         """
         Tests that if we pass a sorted dataframe, it doesn't change the values due to
         an index mismatch.

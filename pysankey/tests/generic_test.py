@@ -17,7 +17,7 @@ class GenericTest(unittest.TestCase):
         cls.data = ""
         cls.colorDict = ""
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         path = f"{self.figure_name}.png"
         # Comment this to check the resulting image
         if os.path.exists(path):
@@ -28,7 +28,7 @@ class TestFruit(GenericTest):
 
     """Base test to test with the data in fruit.txt"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.figure_name = "fruit"
         self.data = pd.read_csv(
             "pysankey/fruits.txt", sep=" ", names=["true", "predicted"]
@@ -47,7 +47,7 @@ class TestCustomerGood(GenericTest):
 
     """Base test to test with the data in customers-goods.csv"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.figure_name = "customer-good"
         self.data = pd.read_csv(
             "pysankey/customers-goods.csv",
