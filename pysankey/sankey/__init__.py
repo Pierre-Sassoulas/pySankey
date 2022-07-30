@@ -1,6 +1,6 @@
 r"""
 Produces simple Sankey Diagrams with matplotlib.
-@author: Anneya Golob & marcomanz & pierre-sassoulas & jorwoods & vgalisson
+@author: Anneya Golob & https://github.com/Pierre-Sassoulas/pySankey/graphs/contributors
                       .-.
                  .--.(   ).--.
       <-.  .-.-.(.->          )_  .--.
