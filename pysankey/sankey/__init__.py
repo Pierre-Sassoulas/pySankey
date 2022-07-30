@@ -111,20 +111,22 @@ def sankey(
     )
     plt.rc("text", usetex=False)
     plt.rc("font", family="serif")
-    dataFrame = _create_dataframe(left, leftWeight, right, rightWeight)
+    data_frame = _create_dataframe(left, leftWeight, right, rightWeight)
     # Identify all labels that appear 'left' or 'right'
-    allLabels = pd.Series(
-        np.r_[dataFrame.left.unique(), dataFrame.right.unique()]
+    all_labels = pd.Series(
+        np.r_[data_frame.left.unique(), data_frame.right.unique()]
     ).unique()
-    LOGGER.debug("Labels to handle : %s", allLabels)
-    leftLabels, rightLabels = identify_labels(dataFrame, leftLabels, rightLabels)
-    colorDict = create_colors(allLabels, colorDict)  # type: ignore
-    ns_l, ns_r = determine_widths(dataFrame, leftLabels, rightLabels)
+    LOGGER.debug("Labels to handle : %s", all_labels)
+    leftLabels, rightLabels = identify_labels(data_frame, leftLabels, rightLabels)
+    colorDict = create_colors(all_labels, colorDict)  # type: ignore
+    ns_l, ns_r = determine_widths(data_frame, leftLabels, rightLabels)
     # Determine positions of left label patches and total widths
-    leftWidths, topEdge = _get_positions_and_total_widths(dataFrame, leftLabels, "left")
+    leftWidths, topEdge = _get_positions_and_total_widths(
+        data_frame, leftLabels, "left"
+    )
     # Determine positions of right label patches and total widths
     rightWidths, topEdge = _get_positions_and_total_widths(
-        dataFrame, rightLabels, "right"
+        data_frame, rightLabels, "right"
     )
     # Total vertical extent of diagram
     xMax = topEdge / aspect
@@ -141,7 +143,7 @@ def sankey(
     plot_strips(
         ax,
         colorDict,  # type: ignore
-        dataFrame,
+        data_frame,
         leftLabels,
         leftWidths,
         ns_l,
@@ -161,9 +163,9 @@ def sankey(
 
 def save_image(figureName: Optional[str]) -> None:
     if figureName is not None:
-        fileName = f"{figureName}.png"
-        plt.savefig(fileName, bbox_inches="tight", dpi=150)
-        LOGGER.info("Sankey diagram generated in '%s'", fileName)
+        file_name = f"{figureName}.png"
+        plt.savefig(file_name, bbox_inches="tight", dpi=150)
+        LOGGER.info("Sankey diagram generated in '%s'", file_name)
 
 
 def identify_labels(
@@ -242,17 +244,17 @@ def determine_widths(
     ns_l: Dict = defaultdict()
     ns_r: Dict = defaultdict()
     for leftLabel in leftLabels:
-        leftDict = {}
-        rightDict = {}
+        left_dict = {}
+        right_dict = {}
         for rightLabel in rightLabels:
-            leftDict[rightLabel] = dataFrame[
+            left_dict[rightLabel] = dataFrame[
                 (dataFrame.left == leftLabel) & (dataFrame.right == rightLabel)
             ].leftWeight.sum()
-            rightDict[rightLabel] = dataFrame[
+            right_dict[rightLabel] = dataFrame[
                 (dataFrame.left == leftLabel) & (dataFrame.right == rightLabel)
             ].rightWeight.sum()
-        ns_l[leftLabel] = leftDict
-        ns_r[leftLabel] = rightDict
+        ns_l[leftLabel] = left_dict
+        ns_r[leftLabel] = right_dict
     return ns_l, ns_r
 
 
@@ -335,7 +337,7 @@ def _create_dataframe(
         leftWeight = leftWeight.reset_index(drop=True)
     if isinstance(rightWeight, pd.Series):
         rightWeight = rightWeight.reset_index(drop=True)
-    dataFrame = pd.DataFrame(
+    data_frame = pd.DataFrame(
         {
             "left": left,
             "right": right,
@@ -344,9 +346,9 @@ def _create_dataframe(
         },
         index=range(len(left)),
     )
-    if len(dataFrame[(dataFrame.left.isnull()) | (dataFrame.right.isnull())]):
+    if len(data_frame[(data_frame.left.isnull()) | (data_frame.right.isnull())]):
         raise NullsInFrame("Sankey graph does not support null values.")
-    return dataFrame
+    return data_frame
 
 
 def plot_strips(
@@ -365,9 +367,9 @@ def plot_strips(
     # Plot strips
     for leftLabel in leftLabels:
         for rightLabel in rightLabels:
-            labelColor = leftLabel
+            label_color = leftLabel
             if rightColor:
-                labelColor = rightLabel
+                label_color = rightLabel
             if (
                 len(
                     dataFrame[
@@ -401,7 +403,7 @@ def plot_strips(
                     ys_d,
                     ys_u,
                     alpha=0.65,
-                    color=colorDict[labelColor],
+                    color=colorDict[label_color],
                 )
     ax.axis("off")
 
@@ -412,17 +414,17 @@ def _get_positions_and_total_widths(
     """Determine positions of label patches and total widths"""
     widths: Dict = defaultdict()
     for i, label in enumerate(labels):
-        labelWidths = {}
-        labelWidths[side] = df[df[side] == label][side + "Weight"].sum()
+        label_widths = {}
+        label_widths[side] = df[df[side] == label][side + "Weight"].sum()
         if i == 0:
-            labelWidths["bottom"] = 0
-            labelWidths["top"] = labelWidths[side]
+            label_widths["bottom"] = 0
+            label_widths["top"] = label_widths[side]
         else:
-            bottomWidth = widths[labels[i - 1]]["top"]
-            weightedSum = 0.02 * df[side + "Weight"].sum()
-            labelWidths["bottom"] = bottomWidth + weightedSum
-            labelWidths["top"] = labelWidths["bottom"] + labelWidths[side]
-            topEdge = labelWidths["top"]
-        widths[label] = labelWidths
-        LOGGER.debug("%s position of '%s' : %s", side, label, labelWidths)
+            bottom_width = widths[labels[i - 1]]["top"]
+            weighted_sum = 0.02 * df[side + "Weight"].sum()
+            label_widths["bottom"] = bottom_width + weighted_sum
+            label_widths["top"] = label_widths["bottom"] + label_widths[side]
+            topEdge = label_widths["top"]
+        widths[label] = label_widths
+        LOGGER.debug("%s position of '%s' : %s", side, label, label_widths)
     return widths, topEdge
