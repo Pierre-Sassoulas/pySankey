@@ -1,6 +1,6 @@
 import pandas as pd
 
-from pysankey.sankey import create_datadrame
+from pysankey.sankey import _create_dataframe
 from tests.generic_test import TestCustomerGood
 
 
@@ -9,7 +9,7 @@ class TestCreateDataframeCustomerGood(TestCustomerGood):
     """Tests the create_dataframe function on the data in customers-goods.csv"""
 
     def test_dataframe_correct_type(self) -> None:
-        dataframe = create_datadrame(
+        dataframe = _create_dataframe(
             left=self.data["customer"],
             leftWeight=self.data["revenue"],
             right=self.data["good"],
@@ -23,7 +23,7 @@ class TestCreateDataframeCustomerGood(TestCustomerGood):
         an index mismatch.
         """
         # Pass the data as is
-        dataframe = create_datadrame(
+        dataframe = _create_dataframe(
             left=self.data["customer"],
             leftWeight=self.data["revenue"],
             right=self.data["good"],
@@ -32,7 +32,7 @@ class TestCreateDataframeCustomerGood(TestCustomerGood):
 
         # Now pass a sorted dataframe in
         data_sorted = self.data.sort_values(by="revenue").copy()
-        dataframe_sorted = create_datadrame(
+        dataframe_sorted = _create_dataframe(
             left=data_sorted["customer"],
             leftWeight=data_sorted["revenue"],
             right=data_sorted["good"],

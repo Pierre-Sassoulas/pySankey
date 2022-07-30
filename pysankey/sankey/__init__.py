@@ -111,7 +111,7 @@ def sankey(
     )
     plt.rc("text", usetex=False)
     plt.rc("font", family="serif")
-    dataFrame = create_datadrame(left, leftWeight, right, rightWeight)
+    dataFrame = _create_dataframe(left, leftWeight, right, rightWeight)
     # Identify all labels that appear 'left' or 'right'
     allLabels = pd.Series(
         np.r_[dataFrame.left.unique(), dataFrame.right.unique()]
@@ -320,7 +320,7 @@ def create_colors(
     return colorDict
 
 
-def create_datadrame(
+def _create_dataframe(
     left: Union[List, ndarray, Series],
     leftWeight: Union[ndarray, Series],
     right: Union[ndarray, Series],
@@ -425,5 +425,4 @@ def _get_positions_and_total_widths(
             topEdge = labelWidths["top"]
         widths[label] = labelWidths
         LOGGER.debug("%s position of '%s' : %s", side, label, labelWidths)
-
     return widths, topEdge
