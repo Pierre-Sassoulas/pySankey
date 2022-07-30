@@ -312,11 +312,10 @@ def create_colors(
     else:
         missing = [label for label in allLabels if label not in colorDict.keys()]
         if missing:
-            msg = (
+            raise ValueError(
                 "The colorDict parameter is missing values for the following labels : "
+                + ", ".join(missing)
             )
-            msg += "{}".format(", ".join(missing))
-            raise ValueError(msg)
     LOGGER.debug("The colordict value are : %s", colorDict)
     return colorDict
 
