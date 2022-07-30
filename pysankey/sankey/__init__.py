@@ -15,6 +15,8 @@ Produces simple Sankey Diagrams with matplotlib.
                 '  |   '   |
 """
 
+__all__ = ["sankey", "PySankeyException", "NullsInFrame", "LabelMismatch"]
+
 import logging
 import warnings
 from collections import defaultdict
@@ -28,19 +30,9 @@ from numpy import float64, ndarray
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
 
+from pysankey.sankey.exceptions import LabelMismatch, NullsInFrame, PySankeyException
+
 LOGGER = logging.getLogger(__name__)
-
-
-class PySankeyException(Exception):
-    """Generic PySankey Exception."""
-
-
-class NullsInFrame(PySankeyException):
-    pass
-
-
-class LabelMismatch(PySankeyException):
-    pass
 
 
 def check_data_matches_labels(
