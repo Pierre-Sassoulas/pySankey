@@ -220,15 +220,15 @@ def deprecation_warnings(
     warn = []
     if figureName is not None:
         msg = "use of figureName in sankey() is deprecated"
-        warnings.warn(msg, DeprecationWarning)
+        warnings.warn(msg, stacklevel=2, category=DeprecationWarning)
         warn.append(msg[7:-14])
     if closePlot is not False:
         msg = "use of closePlot in sankey() is deprecated"
-        warnings.warn(msg, DeprecationWarning)
+        warnings.warn(msg, stacklevel=2, category=DeprecationWarning)
         warn.append(msg[7:-14])
     if figSize is not None:
         msg = "use of figSize in sankey() is deprecated"
-        warnings.warn(msg, DeprecationWarning)
+        warnings.warn(msg, stacklevel=2, category=DeprecationWarning)
         warn.append(msg[7:-14])
     if warn:
         LOGGER.warning(
