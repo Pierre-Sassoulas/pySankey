@@ -29,8 +29,9 @@ import seaborn as sns
 from numpy import float64, ndarray
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
+import matplotlib as mpl
 
-from pysankey.sankey.exceptions import LabelMismatch, NullsInFrame, PySankeyException
+# from pysankey.sankey.exceptions import LabelMismatch, NullsInFrame, PySankeyException
 
 LOGGER = logging.getLogger(__name__)
 
@@ -72,6 +73,8 @@ def sankey(
     closePlot: bool = False,
     figSize: Optional[Tuple[int, int]] = None,
     ax: Optional[Any] = None,
+    color_gradient: bool = False,
+    alphaDict: dict = None
 ) -> Any:
     """
     Make Sankey Diagram showing flow from left-->right
@@ -128,6 +131,20 @@ def sankey(
     rightWidths, topEdge = _get_positions_and_total_widths(
         data_frame, rightLabels, "right"
     )
+    # If no alphaDict given, make one
+    if alphaDict is None:
+        alphaDict = {}
+        for i, label in enumerate(all_labels):
+            alphaDict[label] = 0.65
+    else:
+        missing = [label for label in all_labels if label not in alphaDict.keys()]
+        if missing:
+            msg = (
+                "The alphaDict parameter is missing values for the following labels : "
+            )
+            msg += "{}".format(", ".join(missing))
+            raise ValueError(msg)
+    LOGGER.debug("The alphadict value are : %s", alphaDict)
     # Total vertical extent of diagram
     xMax = topEdge / aspect
     draw_vertical_bars(
@@ -152,6 +169,8 @@ def sankey(
         rightLabels,
         rightWidths,
         xMax,
+        color_gradient,
+        alphaDict
     )
     if figSize is not None:
         plt.gcf().set_size_inches(figSize)
@@ -363,6 +382,8 @@ def plot_strips(
     rightLabels: ndarray,
     rightWidths: Dict,
     xMax: float64,
+    color_gradient: bool = False,
+    alphaDict: dict = None
 ) -> None:
     # Plot strips
     for leftLabel in leftLabels:
@@ -398,13 +419,50 @@ def plot_strips(
                 # right place
                 leftWidths[leftLabel]["bottom"] += ns_l[leftLabel][rightLabel]
                 rightWidths[rightLabel]["bottom"] += ns_r[leftLabel][rightLabel]
-                ax.fill_between(
-                    np.linspace(0, xMax, len(ys_d)),
-                    ys_d,
-                    ys_u,
-                    alpha=0.65,
-                    color=colorDict[label_color],
-                )
+
+                if color_gradient:
+                    if (leftLabel, rightLabel) in colorDict:
+                        cleft = cright = colorDict[leftLabel, rightLabel]
+                    else:
+                        cleft = colorDict[leftLabel]
+                        cright = colorDict[rightLabel]
+                    if (leftLabel, rightLabel) in alphaDict:
+                        alpha = alphaDict[leftLabel, rightLabel]
+                    else:
+                        alpha = alphaDict[label_color]
+
+                    x = list(np.linspace(0, xMax, len(ys_d)))
+                    poly, = ax.fill(x + x[::-1] + [x[0]], list(ys_d) + list(ys_u)[::-1] + [ys_d[0]], facecolor='none')
+
+                    # get the extent of the axes
+                    xmin, xmax = ax.get_xlim()
+                    ymin, ymax = ax.get_ylim()
+
+                    # create a dummy image
+                    img_data = np.arange(xmin,xmax,(xmax-xmin) / 100.)
+                    img_data = img_data.reshape(img_data.size, 1).T
+
+                    # plot and clip the image
+                    im = ax.imshow(img_data, aspect='auto', origin='lower', cmap=mpl.colors.LinearSegmentedColormap.from_list(
+                        'custom', [cleft, cright]), alpha=alpha, extent=[xmin,xmax,ymin,ymax])
+
+                    im.set_clip_path(poly)
+                else:
+                    if (leftLabel, rightLabel) in colorDict:
+                        color = colorDict[leftLabel, rightLabel]
+                    else:
+                        color = colorDict[label_color]
+                    if (leftLabel, rightLabel) in alphaDict:
+                        alpha = alphaDict[leftLabel, rightLabel]
+                    else:
+                        alpha = alphaDict[label_color]
+                    ax.fill_between(
+                        np.linspace(0, xMax, len(ys_d)),
+                        ys_d,
+                        ys_u,
+                        alpha=alpha,
+                        color=colorDict[label_color],
+                    )
     ax.axis("off")
 
 
