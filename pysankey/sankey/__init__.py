@@ -22,6 +22,7 @@ import warnings
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -29,7 +30,6 @@ import seaborn as sns
 from numpy import float64, ndarray
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
-import matplotlib as mpl
 
 from pysankey.sankey.exceptions import LabelMismatch, NullsInFrame, PySankeyException
 
@@ -74,7 +74,7 @@ def sankey(
     figSize: Optional[Tuple[int, int]] = None,
     ax: Optional[Any] = None,
     color_gradient: bool = False,
-    alphaDict: dict = None
+    alphaDict: dict = None,
 ) -> Any:
     """
     Make Sankey Diagram showing flow from left-->right
@@ -170,7 +170,7 @@ def sankey(
         rightWidths,
         xMax,
         color_gradient,
-        alphaDict
+        alphaDict,
     )
     if figSize is not None:
         plt.gcf().set_size_inches(figSize)
@@ -383,7 +383,7 @@ def plot_strips(
     rightWidths: Dict,
     xMax: float64,
     color_gradient: bool = False,
-    alphaDict: dict = None
+    alphaDict: dict = None,
 ) -> None:
     # Plot strips
     for leftLabel in leftLabels:
@@ -432,26 +432,38 @@ def plot_strips(
                         alpha = alphaDict[label_color]
 
                     x = list(np.linspace(0, xMax, len(ys_d)))
-                    poly, = ax.fill(x + x[::-1] + [x[0]], list(ys_d) + list(ys_u)[::-1] + [ys_d[0]], facecolor='none')
+                    (poly,) = ax.fill(
+                        x + x[::-1] + [x[0]],
+                        list(ys_d) + list(ys_u)[::-1] + [ys_d[0]],
+                        facecolor="none",
+                    )
 
                     # get the extent of the axes
                     xmin, xmax = ax.get_xlim()
                     ymin, ymax = ax.get_ylim()
 
                     # create a dummy image
-                    img_data = np.arange(xmin,xmax,(xmax-xmin) / 100.)
+                    img_data = np.arange(xmin, xmax, (xmax - xmin) / 100.0)
                     img_data = img_data.reshape(img_data.size, 1).T
 
                     # plot and clip the image
-                    im = ax.imshow(img_data, aspect='auto', origin='lower', cmap=mpl.colors.LinearSegmentedColormap.from_list(
-                        'custom', [cleft, cright]), alpha=alpha, extent=[xmin,xmax,ymin,ymax])
+                    im = ax.imshow(
+                        img_data,
+                        aspect="auto",
+                        origin="lower",
+                        cmap=mpl.colors.LinearSegmentedColormap.from_list(
+                            "custom", [cleft, cright]
+                        ),
+                        alpha=alpha,
+                        extent=[xmin, xmax, ymin, ymax],
+                    )
 
                     im.set_clip_path(poly)
                 else:
                     if (leftLabel, rightLabel) in colorDict:
-                        color = colorDict[leftLabel, rightLabel]
+                        colorDict[leftLabel, rightLabel]
                     else:
-                        color = colorDict[label_color]
+                        colorDict[label_color]
                     if (leftLabel, rightLabel) in alphaDict:
                         alpha = alphaDict[leftLabel, rightLabel]
                     else:
