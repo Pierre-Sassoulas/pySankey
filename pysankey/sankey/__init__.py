@@ -134,7 +134,7 @@ def sankey(
     # If no alphaDict given, make one
     if alphaDict is None:
         alphaDict = {}
-        for i, label in enumerate(all_labels):
+        for _, label in enumerate(all_labels):
             alphaDict[label] = 0.65
     else:
         missing = [label for label in all_labels if label not in alphaDict.keys()]
@@ -483,14 +483,14 @@ def _get_positions_and_total_widths(
 ) -> Tuple[Dict, float64]:
     """Determine positions of label patches and total widths"""
     widths: Dict = defaultdict()
-    for idx, label in enumerate(labels):
+    for i, label in enumerate(labels):
         label_widths = {}
         label_widths[side] = df[df[side] == label][side + "Weight"].sum()
-        if idx == 0:
+        if i == 0:
             label_widths["bottom"] = 0
             label_widths["top"] = label_widths[side]
         else:
-            bottom_width = widths[labels[idx - 1]]["top"]
+            bottom_width = widths[labels[i - 1]]["top"]
             weighted_sum = 0.02 * df[side + "Weight"].sum()
             label_widths["bottom"] = bottom_width + weighted_sum
             label_widths["top"] = label_widths["bottom"] + label_widths[side]
