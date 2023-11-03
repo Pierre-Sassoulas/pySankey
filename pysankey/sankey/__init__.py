@@ -169,8 +169,8 @@ def sankey(
         rightLabels,
         rightWidths,
         xMax,
-        color_gradient,
         alphaDict,
+        color_gradient
     )
     if figSize is not None:
         plt.gcf().set_size_inches(figSize)
