@@ -372,7 +372,7 @@ def _create_dataframe(
 
 def plot_strips(
     ax: Any,
-    colorDict: Union[Dict[str, Tuple[float, float, float]], Dict[str, str]],
+    colorDict: Union[Dict[str|tuple[str, str], Tuple[float, float, float]], Dict[str|tuple[str, str], str]],
     dataFrame: DataFrame,
     leftLabels: ndarray,
     leftWidths: Dict,
