@@ -74,7 +74,7 @@ def sankey(
     figSize: Optional[Tuple[int, int]] = None,
     ax: Optional[Any] = None,
     color_gradient: bool = False,
-    alphaDict: Optional[dict[str | tuple[str, str], float]] = None
+    alphaDict: Optional[dict[str | tuple[str, str], float]] = None,
 ) -> Any:
     """
     Make Sankey Diagram showing flow from left-->right
@@ -382,7 +382,7 @@ def plot_strips(
     rightLabels: ndarray,
     rightWidths: Dict,
     xMax: float64,
-    alphaDict: dict[str|tuple[str, str], float],
+    alphaDict: dict[str | tuple[str, str], float],
     color_gradient: bool = False,
 ) -> None:
     # Plot strips
