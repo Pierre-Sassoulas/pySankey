@@ -483,7 +483,7 @@ def _get_positions_and_total_widths(
 ) -> Tuple[Dict, float64]:
     """Determine positions of label patches and total widths"""
     widths: Dict = defaultdict()
-    for i, label in enumerate(labels):
+    for _, label in enumerate(labels):
         label_widths = {}
         label_widths[side] = df[df[side] == label][side + "Weight"].sum()
         if i == 0:
