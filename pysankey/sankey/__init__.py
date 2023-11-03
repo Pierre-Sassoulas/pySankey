@@ -31,7 +31,7 @@ from pandas.core.frame import DataFrame
 from pandas.core.series import Series
 import matplotlib as mpl
 
-# from pysankey.sankey.exceptions import LabelMismatch, NullsInFrame, PySankeyException
+from pysankey.sankey.exceptions import LabelMismatch, NullsInFrame, PySankeyException
 
 LOGGER = logging.getLogger(__name__)
 
