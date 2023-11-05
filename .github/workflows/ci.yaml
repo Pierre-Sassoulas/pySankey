@@ -6,7 +6,7 @@ on:
 
 env:
   CACHE_VERSION: 4
-  DEFAULT_PYTHON: 3.9
+  DEFAULT_PYTHON: 3.11
   PRE_COMMIT_CACHE: ~/.cache/pre-commit
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10"]
+        python-version: [3.8, 3.9, "3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - name: Python ${{ matrix.python-version }}
@@ -64,7 +64,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10"]
+        python-version: [3.8, 3.9, "3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - name: Python ${{ matrix.python-version }}
@@ -84,7 +84,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10"]
+        python-version: [3.8, 3.9, "3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - name: Python ${{ matrix.python-version }}
