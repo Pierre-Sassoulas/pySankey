@@ -74,7 +74,7 @@ def sankey(
     figSize: Optional[Tuple[int, int]] = None,
     ax: Optional[Any] = None,
     color_gradient: bool = False,
-    alphaDict: Optional[dict[str | tuple[str, str], float]] = None,
+    alphaDict: Optional[dict[Union[str, tuple[str, str]], float]] = None,
 ) -> Any:
     """
     Make Sankey Diagram showing flow from left-->right
@@ -142,7 +142,7 @@ def sankey(
             msg = (
                 "The alphaDict parameter is missing values for the following labels : "
             )
-            msg += "{}".format(", ".join(missing))
+            msg += ", ".join(missing)
             raise ValueError(msg)
     LOGGER.debug("The alphadict value are : %s", alphaDict)
     # Total vertical extent of diagram
@@ -373,8 +373,8 @@ def _create_dataframe(
 def plot_strips(
     ax: Any,
     colorDict: Union[
-        Dict[str | tuple[str, str], Tuple[float, float, float]],
-        Dict[str | tuple[str, str], str],
+        Dict[Union[str, tuple[str, str]], Tuple[float, float, float]],
+        Dict[Union[str, tuple[str, str]], str],
     ],
     dataFrame: DataFrame,
     leftLabels: ndarray,
@@ -385,7 +385,7 @@ def plot_strips(
     rightLabels: ndarray,
     rightWidths: Dict,
     xMax: float64,
-    alphaDict: dict[str | tuple[str, str], float],
+    alphaDict: dict[Union[str, tuple[str, str]], float],
     color_gradient: bool = False,
 ) -> None:
     # Plot strips
@@ -423,16 +423,16 @@ def plot_strips(
                 leftWidths[leftLabel]["bottom"] += ns_l[leftLabel][rightLabel]
                 rightWidths[rightLabel]["bottom"] += ns_r[leftLabel][rightLabel]
 
+                if (leftLabel, rightLabel) in alphaDict:
+                    alpha = alphaDict[leftLabel, rightLabel]
+                else:
+                    alpha = alphaDict[label_color]
                 if color_gradient:
                     if (leftLabel, rightLabel) in colorDict:
                         cleft = cright = colorDict[leftLabel, rightLabel]
                     else:
                         cleft = colorDict[leftLabel]
                         cright = colorDict[rightLabel]
-                    if (leftLabel, rightLabel) in alphaDict:
-                        alpha = alphaDict[leftLabel, rightLabel]
-                    else:
-                        alpha = alphaDict[label_color]
 
                     x = list(np.linspace(0, xMax, len(ys_d)))
                     (poly,) = ax.fill(
@@ -464,19 +464,15 @@ def plot_strips(
                     im.set_clip_path(poly)
                 else:
                     if (leftLabel, rightLabel) in colorDict:
-                        colorDict[leftLabel, rightLabel]
+                        color = colorDict[leftLabel, rightLabel]
                     else:
-                        colorDict[label_color]
-                    if (leftLabel, rightLabel) in alphaDict:
-                        alpha = alphaDict[leftLabel, rightLabel]
-                    else:
-                        alpha = alphaDict[label_color]
+                        color = colorDict[label_color]
                     ax.fill_between(
                         np.linspace(0, xMax, len(ys_d)),
                         ys_d,
                         ys_u,
                         alpha=alpha,
-                        color=colorDict[label_color],
+                        color=color,
                     )
     ax.axis("off")
 
