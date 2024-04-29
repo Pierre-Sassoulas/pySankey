@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: "Pysankey"
+message: >-
+  If you use this software, please cite it using the metadata from this file.
+type: software
+authors:
+  - name: "Anneya Golob & https://github.com/Pierre-Sassoulas/pySankey/graphs/contributors"
+repository-code: "https://github.com/Pierre-Sassoulas/pySankey"
+url: "https://pypi.org/project/pySankeyBeta/"
+abstract: >-
+  Produces simple Sankey Diagrams with matplotlib.
+                      .-.
+                 .--.(   ).--.
+      <-.  .-.-.(.->          )_  .--.
+       `-`(     )-'             `)    )
+         (o  o  )                `)`-'
+        (      )                ,)
+        ( ()  )                 )
+         `---"\    ,    ,    ,/`
+               `--' `--' `--'
+                |  |   |   |
+                |  |   |   |
+                '  |   '   |
+license: GPL-3.0
