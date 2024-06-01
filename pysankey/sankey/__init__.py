@@ -496,4 +496,5 @@ def _get_positions_and_total_widths(
             topEdge = label_widths["top"]
         widths[label] = label_widths
         LOGGER.debug("%s position of '%s' : %s", side, label, label_widths)
+    # pylint: disable-next=possibly-used-before-assignment
     return widths, topEdge
