@@ -1,5 +1,4 @@
-r"""
-Produces simple Sankey Diagrams with matplotlib.
+r"""Produces simple Sankey Diagrams with matplotlib.
 @author: Anneya Golob & https://github.com/Pierre-Sassoulas/pySankey/graphs/contributors
                       .-.
                  .--.(   ).--.
@@ -41,7 +40,8 @@ def check_data_matches_labels(
 ) -> None:
     """Check whether data matches labels.
 
-    Raise a LabelMismatch Exception if not."""
+    Raise a LabelMismatch Exception if not.
+    """
     if len(labels) > 0:
         if isinstance(data, list):
             data = set(data)
@@ -76,8 +76,7 @@ def sankey(
     color_gradient: bool = False,
     alphaDict: Optional[Dict[Union[str, Tuple[str, str]], float]] = None,
 ) -> Any:
-    """
-    Make Sankey Diagram showing flow from left-->right
+    """Make Sankey Diagram showing flow from left-->right
 
     Inputs:
         left = NumPy array of object labels on the left of the diagram

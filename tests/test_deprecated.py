@@ -1,4 +1,5 @@
 from pysankey import sankey
+
 from tests.generic_test import TestFruit
 
 

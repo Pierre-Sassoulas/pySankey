@@ -8,7 +8,8 @@ class GenericTest(unittest.TestCase):
     """Generic tests for sankey
 
     If figure_name is used, the resulting images
-    will be removed at the end of the tests."""
+    will be removed at the end of the tests.
+    """
 
     @classmethod
     def setUpClass(cls):

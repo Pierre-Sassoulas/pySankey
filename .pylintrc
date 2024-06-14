@@ -1,7 +1,0 @@
-[BASIC]
-# Good variable names which should always be accepted, separated by a comma
-good-names=i,j,k
-variable-naming-style=camelCase
-argument-naming-style=camelCase
-
-disable=missing-docstring, invalid-name, too-many-arguments, too-many-locals

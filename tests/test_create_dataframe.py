@@ -1,6 +1,6 @@
 import pandas as pd
-
 from pysankey.sankey import _create_dataframe
+
 from tests.generic_test import TestCustomerGood
 
 
@@ -17,8 +17,7 @@ class TestCreateDataframeCustomerGood(TestCustomerGood):
         self.assertIsInstance(dataframe, pd.DataFrame)
 
     def test_sorted_dataframe(self) -> None:
-        """
-        Tests that if we pass a sorted dataframe, it doesn't change the values due to
+        """Tests that if we pass a sorted dataframe, it doesn't change the values due to
         an index mismatch.
         """
         # Pass the data as is

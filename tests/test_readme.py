@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-
 from pysankey import sankey
+
 from tests.generic_test import TestCustomerGood, TestFruit
 
 
