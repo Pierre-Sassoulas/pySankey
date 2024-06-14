@@ -1,0 +1,42 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+
+requires = [
+  "setuptools>=66.1",
+]
+
+[project]
+name = "pysankeybeta"
+version = "1.4.2"
+description = "Make simple, pretty Sankey Diagrams (Beta version)"
+readme = "README.md"
+license = { text = "GNU General Public License v3.0" }
+authors = [
+  { name = "Pierre Sassoulas", email = "pierre.sassoulas@gmail.com" },
+]
+requires-python = ">=3.8"
+classifiers = [
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+  "matplotlib>=2.1.0rc1",
+  "numpy>=1.16.5",
+  "pandas",
+  "seaborn>=0.8.1",
+]
+optional-dependencies.test = [
+  "coverage",
+  "coveralls",
+  "pre-commit",
+  "pylint>=2.14.5,<3.3",
+  "pytest-cov",
+]
+urls.Homepage = "https://github.com/pierre-sassoulas/pySankey"
