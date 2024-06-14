@@ -78,6 +78,7 @@ You can generate a sankey's diagram with this code:
 ```python
 import pandas as pd
 from pysankey import sankey
+import matplotlib.pyplot as plt
 
 df = pd.read_csv(
     'pysankey/fruits.txt', sep=' ', names=['true', 'predicted']
@@ -122,6 +123,7 @@ You could also use weight:
 ```python
 import pandas as pd
 from pysankey import sankey
+import matplotlib.pyplot as plt
 
 df = pd.read_csv(
     'pysankey/customers-goods.csv', sep=',',
