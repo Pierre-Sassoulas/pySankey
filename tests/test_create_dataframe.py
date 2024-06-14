@@ -5,7 +5,6 @@ from tests.generic_test import TestCustomerGood
 
 
 class TestCreateDataframeCustomerGood(TestCustomerGood):
-
     """Tests the create_dataframe function on the data in customers-goods.csv"""
 
     def test_dataframe_correct_type(self) -> None:

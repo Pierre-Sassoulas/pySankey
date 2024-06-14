@@ -5,7 +5,6 @@ from tests.generic_test import TestCustomerGood, TestFruit
 
 
 class TestReadmeFruit(TestFruit):
-
     """Test use case from README with the data in fruit.txt"""
 
     def test_no_fail_readme(self) -> None:
@@ -20,7 +19,6 @@ class TestReadmeFruit(TestFruit):
 
 
 class TestReadmeCustomerGood(TestCustomerGood):
-
     """Test use case from README with the data in customer-goods.csv"""
 
     def test_no_fail_readme(self) -> None:

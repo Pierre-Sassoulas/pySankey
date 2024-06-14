@@ -3,7 +3,6 @@ from tests.generic_test import TestFruit
 
 
 class TestErrorCase(TestFruit):
-
     """Test sankey's error case."""
 
     def test_bad_color_labels(self) -> None:

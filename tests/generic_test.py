@@ -5,7 +5,6 @@ import pandas as pd
 
 
 class GenericTest(unittest.TestCase):
-
     """Generic tests for sankey
 
     If figure_name is used, the resulting images
@@ -25,7 +24,6 @@ class GenericTest(unittest.TestCase):
 
 
 class TestFruit(GenericTest):
-
     """Base test to test with the data in fruit.txt"""
 
     def setUp(self) -> None:
@@ -44,7 +42,6 @@ class TestFruit(GenericTest):
 
 
 class TestCustomerGood(GenericTest):
-
     """Base test to test with the data in customers-goods.csv"""
 
     def setUp(self) -> None:

@@ -3,7 +3,6 @@ from tests.generic_test import TestFruit
 
 
 class TestErrorCase(TestFruit):
-
     """Test sankey's deprecation warnings."""
 
     def test_deprecated_parameters(self) -> None:
