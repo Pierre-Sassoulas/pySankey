@@ -129,9 +129,8 @@ already in the previous example:
 
 ```python
 # Calculate the weights from the fruits dataframe
-df = df.groupby(["true", "predicted"]).size()
-df = df.reset_index().rename(columns={0: "weight"})
-weights = df['weight'].astype(float)
+df = df.groupby(["true", "predicted"]).size().reset_index()
+weights = df[0].astype(float)
 
 ax = sankey(
     left=df['true'],
