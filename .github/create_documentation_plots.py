@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
 from pysankey import sankey
 
 df = pd.read_csv("../pysankey/fruits.txt", sep=" ", names=["true", "predicted"])
