@@ -3,7 +3,7 @@ import pandas as pd
 
 from pysankey import sankey
 
-df = pd.read_csv("fruits.txt", sep=" ", names=["true", "predicted"])
+df = pd.read_csv("../pysankey/fruits.txt", sep=" ", names=["true", "predicted"])
 
 colorDict = {
     "apple": "#f71b1b",
@@ -28,7 +28,7 @@ ax = sankey(
     fontsize=12,
 )
 
-plt.savefig("../.github/img/fruits.png")
+plt.savefig("img/fruits.png")
 plt.close()
 
 
@@ -51,4 +51,4 @@ ax = sankey(
 )
 
 
-plt.savefig("../.github/img/fruits_weighted.png")
+plt.savefig("img/fruits_weighted.png")
