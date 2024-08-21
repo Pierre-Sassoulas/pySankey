@@ -13,7 +13,8 @@ Sankey diagrams</a> flowing only from left to right.
 
 ### Simple expected/predicted example with fruits.txt:
 
-`pysankey` contains a simple expected/predicted dataset called `fruits.txt` which looks the following:
+`pysankey` contains a simple expected/predicted dataset called `fruits.txt` which looks
+the following:
 
 <div>
 <table border="1" class="dataframe">
@@ -84,8 +85,8 @@ import matplotlib.pyplot as plt
 
 
 df = pd.read_csv(
-    'fruits.txt', 
-    sep=' ', 
+    'fruits.txt',
+    sep=' ',
     names=['true', 'predicted']
 )
 
@@ -104,12 +105,12 @@ rightLabels = [label for label in labels if label in df['predicted'].values]
 
 # Create the sankey diagram
 ax = sankey(
-    left=df['true'], 
+    left=df['true'],
     right=df['predicted'],
     leftLabels=leftLabels,
     rightLabels=rightLabels,
     colorDict=colorDict,
-    aspect=20, 
+    aspect=20,
     fontsize=12
 )
 
@@ -120,23 +121,27 @@ plt.show() # to display
 
 ### Plotting preprocessed data using weights
 
-However, not always you have or can have the data available in the format mentioned in the previous example (e.g. if the dataset is too large). In this case, the weights between the true and predicted labels can also be calculated beforehand and used to create the sankey diagram. In this example, we continue to work with the data loaded already in the previous example:
+However, not always you have or can have the data available in the format mentioned in
+the previous example (e.g. if the dataset is too large). In this case, the weights
+between the true and predicted labels can also be calculated beforehand and used to
+create the sankey diagram. In this example, we continue to work with the data loaded
+already in the previous example:
 
-``` python
+```python
 # Calculate the weights from the fruits dataframe
 df = df.groupby(["true", "predicted"]).size()
 df = df.reset_index().rename(columns={0: "weight"})
 weights = df['weight'].astype(float)
 
 ax = sankey(
-    left=df['true'], 
+    left=df['true'],
     right=df['predicted'],
-    rightWeight=weights, 
-    leftWeight=weights, 
+    rightWeight=weights,
+    leftWeight=weights,
     leftLabels=leftLabels,
     rightLabels=rightLabels,
     colorDict=colorDict,
-    aspect=20, 
+    aspect=20,
     fontsize=12
 )
 
@@ -149,26 +154,28 @@ plt.show() # to display
 
 > `sankey(left, right, leftWeight=None, rightWeight=None, colorDict=None, leftLabels=None, rightLabels=None, aspect=4, rightColor=False, fontsize=14, ax=None, color_gradient=False, alphaDict=None)`
 >
-> **left**, **right** : NumPy array of object labels on the left and right of the diagram
+> **left**, **right** : NumPy array of object labels on the left and right of the
+> diagram
 >
 > **leftWeight**, **rightWeight** : Numpy arrays of the weights each strip
->      
+>
 > **colorDict** : Dictionary of colors to use for each label
-> 
-> **leftLabels**, **rightLabels** : order of the left and right  labels in the diagram
+>
+> **leftLabels**, **rightLabels** : order of the left and right labels in the diagram
 >
 > **aspect** : vertical extent of the diagram in units of horizontal extent
 >
 > **rightColor** : If true, each strip in the diagram will be be colored
+
                     according to its left label
->
+
 > **figSize** : tuple setting the width and height of the sankey diagram.
+
             Defaults to current figure size
->
+
 > **fontsize** : Fontsize to be used for the labels
 >
 > **ax** : matplotlib axes to plot on, otherwise uses current axes.
-
 
 ## Important informations
 

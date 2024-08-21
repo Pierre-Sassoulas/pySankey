@@ -1,35 +1,31 @@
-import pandas as pd
-from pysankey import sankey
 import matplotlib.pyplot as plt
+import pandas as pd
 
+from pysankey import sankey
 
-df = pd.read_csv(
-    'fruits.txt', 
-    sep=' ', 
-    names=['true', 'predicted']
-)
+df = pd.read_csv("fruits.txt", sep=" ", names=["true", "predicted"])
 
 colorDict = {
-    'apple':'#f71b1b',
-    'blueberry':'#1b7ef7',
-    'banana':'#f3f71b',
-    'lime':'#12e23f',
-    'orange':'#f78c1b',
-    'kiwi':'#9BD937'
+    "apple": "#f71b1b",
+    "blueberry": "#1b7ef7",
+    "banana": "#f3f71b",
+    "lime": "#12e23f",
+    "orange": "#f78c1b",
+    "kiwi": "#9BD937",
 }
 
 labels = list(colorDict.keys())
-leftLabels = [label for label in labels if label in df['true'].values]
-rightLabels = [label for label in labels if label in df['predicted'].values]
+leftLabels = [label for label in labels if label in df["true"].values]
+rightLabels = [label for label in labels if label in df["predicted"].values]
 
 ax = sankey(
-    left=df['true'], 
-    right=df['predicted'],
+    left=df["true"],
+    right=df["predicted"],
     leftLabels=leftLabels,
     rightLabels=rightLabels,
     colorDict=colorDict,
-    aspect=20, 
-    fontsize=12
+    aspect=20,
+    fontsize=12,
 )
 
 plt.savefig("../.github/img/fruits.png")
@@ -41,17 +37,16 @@ df = df.groupby(["true", "predicted"]).size().reset_index()
 weights = df[0].astype(float)
 
 
-
 ax = sankey(
-    left=df['true'], 
-    right=df['predicted'],
-    rightWeight=weights, 
-    leftWeight=weights, 
+    left=df["true"],
+    right=df["predicted"],
+    rightWeight=weights,
+    leftWeight=weights,
     leftLabels=leftLabels,
     rightLabels=rightLabels,
     colorDict=colorDict,
-    aspect=20, 
-    fontsize=12
+    aspect=20,
+    fontsize=12,
 )
 
 
