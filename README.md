@@ -166,13 +166,8 @@ plt.show() # to display
 > **aspect** : vertical extent of the diagram in units of horizontal extent
 >
 > **rightColor** : If true, each strip in the diagram will be be colored
-
-                    according to its left label
-
-> **figSize** : tuple setting the width and height of the sankey diagram.
-
-            Defaults to current figure size
-
+>                  according to its left label
+>
 > **fontsize** : Fontsize to be used for the labels
 >
 > **ax** : matplotlib axes to plot on, otherwise uses current axes.
