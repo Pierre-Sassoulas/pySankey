@@ -32,7 +32,7 @@ plt.savefig("../.github/img/fruits.png")
 plt.close()
 
 
-# This calculates how often the different combinations of "true" and 
+# This calculates how often the different combinations of "true" and
 # "predicted" co-occure
 df = df.groupby(["true", "predicted"]).size().reset_index()
 weights = df[0].astype(float)

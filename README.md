@@ -165,8 +165,8 @@ plt.show() # to display
 >
 > **aspect** : vertical extent of the diagram in units of horizontal extent
 >
-> **rightColor** : If true, each strip in the diagram will be be colored
->                  according to its left label
+> **rightColor** : If true, each strip in the diagram will be be colored according to
+> its left label
 >
 > **fontsize** : Fontsize to be used for the labels
 >
