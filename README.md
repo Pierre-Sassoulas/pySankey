@@ -4,7 +4,7 @@ Uses matplotlib to create simple <a href="https://en.wikipedia.org/wiki/Sankey_d
 Sankey diagrams</a> flowing only from left to right.
 
 [![PyPI version](https://badge.fury.io/py/pySankeyBeta.svg)](https://badge.fury.io/py/pySankeyBeta)
-[![Build Status](https://travis-ci.org/Pierre-Sassoulas/pySankey.svg?branch=master)](https://travis-ci.org/Pierre-Sassoulas/pySankey)
+[![Build Status](https://github.com/Pierre-Sassoulas/pySankey/actions/workflows/ci.yaml/badge.svg)](https://github.com/Pierre-Sassoulas/pySankey/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/Pierre-Sassoulas/pySankey/badge.svg?branch=master)](https://coveralls.io/github/Pierre-Sassoulas/pySankey?branch=master)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
