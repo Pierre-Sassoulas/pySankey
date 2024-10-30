@@ -121,11 +121,11 @@ plt.show() # to display
 
 ### Plotting preprocessed data using weights
 
-However, not always you have or can have the data available in the format mentioned in
-the previous example (e.g. if the dataset is too large). In this case, the weights
-between the true and predicted labels can also be calculated beforehand and used to
-create the sankey diagram. In this example, we continue to work with the data loaded
-already in the previous example:
+However, the data may not always be available in the format mentioned in
+the previous example (for instance, if the dataset is too large). In such cases, the weights
+between the true and predicted labels can be calculated in advance and used to
+create the Sankey diagram. In this example, we will continue working with the data that was loaded
+in the previous example:
 
 ```python
 # Calculate the weights from the fruits dataframe
