@@ -14,7 +14,7 @@ Sankey diagrams</a> flowing only from left to right.
 ### Simple expected/predicted example with fruits.txt:
 
 `pysankey` contains a simple expected/predicted dataset called `fruits.txt` which looks
-the following:
+like the following:
 
 <div>
 <table border="1" class="dataframe">
