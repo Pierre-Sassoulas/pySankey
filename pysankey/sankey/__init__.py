@@ -69,6 +69,7 @@ def sankey(
     aspect: int = 4,
     rightColor: bool = False,
     fontsize: int = 14,
+    fontfamily: str = "serif",
     figureName: Optional[str] = None,
     closePlot: bool = False,
     figSize: Optional[Tuple[int, int]] = None,
@@ -94,6 +95,9 @@ def sankey(
         aspect = vertical extent of the diagram in units of horizontal extent
         rightColor = If true, each strip in the diagram will be be colored
                     according to its left label
+        fontsize = font size for label text, defaults to 14
+        fontfamily = font family for label text (e.g., 'serif', 'sans-serif', 
+                    'monospace'), defaults to 'serif'
         figSize = tuple setting the width and height of the sankey diagram.
             Defaults to current figure size
         ax = optional, matplotlib axes to plot on, otherwise uses current axes.
@@ -112,7 +116,7 @@ def sankey(
         rightWeight,
     )
     plt.rc("text", usetex=False)
-    plt.rc("font", family="serif")
+    plt.rc("font", family=fontfamily)
     data_frame = _create_dataframe(left, leftWeight, right, rightWeight)
     # Identify all labels that appear 'left' or 'right'
     all_labels = pd.Series(
