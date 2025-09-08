@@ -14,7 +14,7 @@ r"""Produces simple Sankey Diagrams with matplotlib.
                 '  |   '   |
 """
 
-__all__ = ["sankey", "PySankeyException", "NullsInFrame", "LabelMismatch"]
+__all__ = ["LabelMismatch", "NullsInFrame", "PySankeyException", "sankey"]
 
 import logging
 import warnings
